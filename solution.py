@@ -40,6 +40,11 @@ def naked_twins(values):
     naked_twins_occurrences = dict([(value, potential_naked_twins_occurrences[value]) for value in naked_twins_values])
 
     # Eliminate the naked twins as possibilities for their peers
+    for naked_twin_value in naked_twins_occurrences.keys():
+        for digit in naked_twin_value:
+            for key, value in values.items():
+                if key not in naked_twins_occurrences[naked_twin_value]:
+                    values[key] = value.replace(digit, '')
 
 
 def cross(A, B):
