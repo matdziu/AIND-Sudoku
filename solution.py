@@ -1,5 +1,6 @@
 assignments = []
 
+
 def assign_value(values, box, value):
     """
     Please use this function to update your values dictionary!
@@ -15,6 +16,7 @@ def assign_value(values, box, value):
         assignments.append(values.copy())
     return values
 
+
 def naked_twins(values):
     """Eliminate values using the naked twins strategy.
     Args:
@@ -25,11 +27,25 @@ def naked_twins(values):
     """
 
     # Find all instances of naked twins
+    potential_naked_twins = dict([(box, values[box]) for box in values.keys() if len(values[box]) == 2])
+
+    naked_twins_occurrences = {}
+    for box, value in potential_naked_twins.items():
+        naked_twins_occurrences[value] = naked_twins_occurrences.get(value, [])
+        naked_twins_occurrences[value].append(box)
+
+    naked_twins_values \
+        = [value for value, boxes in naked_twins_occurrences.items() if len(boxes) == 2]
+
+    naked_twins = dict([(value, naked_twins_occurrences[value]) for value in naked_twins_values])
+
     # Eliminate the naked twins as possibilities for their peers
+
 
 def cross(A, B):
     "Cross product of elements in A and elements in B."
     pass
+
 
 def grid_values(grid):
     """
@@ -43,6 +59,7 @@ def grid_values(grid):
     """
     pass
 
+
 def display(values):
     """
     Display the values as a 2-D grid.
@@ -51,17 +68,22 @@ def display(values):
     """
     pass
 
+
 def eliminate(values):
     pass
+
 
 def only_choice(values):
     pass
 
+
 def reduce_puzzle(values):
     pass
 
+
 def search(values):
     pass
+
 
 def solve(grid):
     """
@@ -73,12 +95,14 @@ def solve(grid):
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
 
+
 if __name__ == '__main__':
     diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
     display(solve(diag_sudoku_grid))
 
     try:
         from visualize import visualize_assignments
+
         visualize_assignments(assignments)
 
     except SystemExit:
