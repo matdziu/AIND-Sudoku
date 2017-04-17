@@ -4,6 +4,18 @@ rows = 'ABCDEFGHI'
 cols = '123456789'
 
 
+def cross(A, B):
+    return [a + b for a in A for b in B]
+
+
+row_units_list = [cross(r, cols) for r in rows]
+col_units_list = [cross(rows, c) for c in cols]
+square_units_list = [cross(rs, cs) for rs in ['ABC', 'DEF', 'GHI'] for cs in ['123', '456', '789']]
+diagonal_units_list = [[row + col for row, col in zip(rows, cols)],
+                       [row + col for row, col in zip(rows, reversed(cols))]]
+all_units_list = row_units_list + col_units_list + square_units_list + diagonal_units_list
+
+
 def assign_value(values, box, value):
     """
     Please use this function to update your values dictionary!
@@ -29,30 +41,9 @@ def naked_twins(values):
         the values dictionary with the naked twins eliminated from peers.
     """
 
-    row_units_list = [cross(r, cols) for r in rows]
-    col_units_list = [cross(rows, c) for c in cols]
-    square_units_list = [cross(rs, cs) for rs in ['ABC', 'DEF', 'GHI'] for cs in ['123', '456', '789']]
-    diagonal_units_list = [[row + col for row, col in zip(rows, cols)],
-                           [row + col for row, col in zip(rows, reversed(cols))]]
-
-    for row_unit in row_units_list:
-        row_unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in row_unit]))
-        for box, value in row_unit_dict_reduced.items():
-            assign_value(values, box, value)
-
-    for col_unit in col_units_list:
-        col_unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in col_unit]))
-        for box, value in col_unit_dict_reduced.items():
-            assign_value(values, box, value)
-
-    for square_unit in square_units_list:
-        square_unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in square_unit]))
-        for box, value in square_unit_dict_reduced.items():
-            assign_value(values, box, value)
-
-    for diagonal_unit in diagonal_units_list:
-        diagonal_unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in diagonal_unit]))
-        for box, value in diagonal_unit_dict_reduced.items():
+    for unit in all_units_list:
+        unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in unit]))
+        for box, value in unit_dict_reduced.items():
             assign_value(values, box, value)
 
     return values
@@ -60,6 +51,7 @@ def naked_twins(values):
 
 def naked_twins_for_unit(unit_dict_input):
     unit_dict_output = unit_dict_input.copy()
+
     # Find all instances of naked twins
     potential_naked_twins = dict(
         [(box, unit_dict_input[box]) for box in unit_dict_input.keys() if len(unit_dict_input[box]) == 2])
@@ -85,10 +77,6 @@ def naked_twins_for_unit(unit_dict_input):
         return naked_twins_for_unit(unit_dict_output)
     else:
         return unit_dict_output
-
-
-def cross(A, B):
-    return [a + b for a in A for b in B]
 
 
 def grid_values(grid):
