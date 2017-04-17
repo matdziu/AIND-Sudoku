@@ -33,8 +33,10 @@ def naked_twins(values):
     col_units = [cross(rows, c) for c in cols]
     square_units = [cross(rs, cs) for rs in ['ABC', 'DEF', 'GHI'] for cs in ['123', '456', '789']]
 
+
+def naked_twins_for_unit(unit):
     # Find all instances of naked twins
-    potential_naked_twins = dict([(box, values[box]) for box in values.keys() if len(values[box]) == 2])
+    potential_naked_twins = dict([(box, unit[box]) for box in unit.keys() if len(unit[box]) == 2])
 
     potential_naked_twins_occurrences = {}
     for box, value in potential_naked_twins.items():
@@ -49,9 +51,11 @@ def naked_twins(values):
     # Eliminate the naked twins as possibilities for their peers
     for naked_twin_value in naked_twins_occurrences.keys():
         for digit in naked_twin_value:
-            for key, value in values.items():
+            for key, value in unit.items():
                 if key not in naked_twins_occurrences[naked_twin_value]:
-                    values[key] = value.replace(digit, '')
+                    unit[key] = value.replace(digit, '')
+
+    return unit
 
 
 def cross(A, B):
