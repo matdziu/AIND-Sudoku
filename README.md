@@ -3,7 +3,11 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: To solve naked twins problem we need to eliminate naked twins from peers for each row, column, square and
+diagonal separately. However each pass over boxes in given unit (row, column, square or diagonal) produces new constraints
+(reduces values in boxes). Those constraints affect solution during next pass over boxes in given unit (hence recursion).
+Constraint propagation in naked twins problem allows with each iteration to limit space in which optimal solution 
+can be found based on constraints imposed in previous algorithm iteration.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
