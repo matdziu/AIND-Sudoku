@@ -29,14 +29,18 @@ def naked_twins(values):
         the values dictionary with the naked twins eliminated from peers.
     """
 
-    row_units = [cross(r, cols) for r in rows]
-    col_units = [cross(rows, c) for c in cols]
-    square_units = [cross(rs, cs) for rs in ['ABC', 'DEF', 'GHI'] for cs in ['123', '456', '789']]
+    row_units_list = [cross(r, cols) for r in rows]
+    col_units_list = [cross(rows, c) for c in cols]
+    square_units_list = [cross(rs, cs) for rs in ['ABC', 'DEF', 'GHI'] for cs in ['123', '456', '789']]
+
+    row_units_dict = dict([(box, values[box]) for row_unit in row_units_list for box in row_unit])
+    col_units_dict = dict([(box, values[box]) for col_unit in col_units_list for box in col_unit])
+    square_units_dict = dict([(box, values[box]) for square_unit in square_units_list for box in square_unit])
 
 
-def naked_twins_for_unit(unit):
+def naked_twins_for_unit(unit_dict):
     # Find all instances of naked twins
-    potential_naked_twins = dict([(box, unit[box]) for box in unit.keys() if len(unit[box]) == 2])
+    potential_naked_twins = dict([(box, unit_dict[box]) for box in unit_dict.keys() if len(unit_dict[box]) == 2])
 
     potential_naked_twins_occurrences = {}
     for box, value in potential_naked_twins.items():
@@ -51,11 +55,11 @@ def naked_twins_for_unit(unit):
     # Eliminate the naked twins as possibilities for their peers
     for naked_twin_value in naked_twins_occurrences.keys():
         for digit in naked_twin_value:
-            for key, value in unit.items():
+            for key, value in unit_dict.items():
                 if key not in naked_twins_occurrences[naked_twin_value]:
-                    unit[key] = value.replace(digit, '')
+                    unit_dict[key] = value.replace(digit, '')
 
-    return unit
+    return unit_dict
 
 
 def cross(A, B):
