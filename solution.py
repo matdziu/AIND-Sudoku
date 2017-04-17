@@ -1,5 +1,8 @@
 assignments = []
 
+rows = 'ABCDEFGHI'
+cols = '123456789'
+
 
 def assign_value(values, box, value):
     """
@@ -26,6 +29,10 @@ def naked_twins(values):
         the values dictionary with the naked twins eliminated from peers.
     """
 
+    row_units = [cross(r, cols) for r in rows]
+    col_units = [cross(rows, c) for c in cols]
+    square_units = [cross(rs, cs) for rs in ['ABC', 'DEF', 'GHI'] for cs in ['123', '456', '789']]
+
     # Find all instances of naked twins
     potential_naked_twins = dict([(box, values[box]) for box in values.keys() if len(values[box]) == 2])
 
@@ -48,8 +55,7 @@ def naked_twins(values):
 
 
 def cross(A, B):
-    "Cross product of elements in A and elements in B."
-    pass
+    return [a + b for a in A for b in B]
 
 
 def grid_values(grid):
