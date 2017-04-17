@@ -33,14 +33,29 @@ def naked_twins(values):
     col_units_list = [cross(rows, c) for c in cols]
     square_units_list = [cross(rs, cs) for rs in ['ABC', 'DEF', 'GHI'] for cs in ['123', '456', '789']]
 
-    row_units_dict = dict([(box, values[box]) for row_unit in row_units_list for box in row_unit])
-    col_units_dict = dict([(box, values[box]) for col_unit in col_units_list for box in col_unit])
-    square_units_dict = dict([(box, values[box]) for square_unit in square_units_list for box in square_unit])
+    for row_unit in row_units_list:
+        row_unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in row_unit]))
+        for box, value in row_unit_dict_reduced.items():
+            values[box] = value
+
+    for col_unit in col_units_list:
+        col_unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in col_unit]))
+        for box, value in col_unit_dict_reduced.items():
+            values[box] = value
+
+    for square_unit in square_units_list:
+        square_unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in square_unit]))
+        for box, value in square_unit_dict_reduced.items():
+            values[box] = value
+
+    return values
 
 
-def naked_twins_for_unit(unit_dict):
+def naked_twins_for_unit(unit_dict_input):
+    unit_dict_output = unit_dict_input.copy()
     # Find all instances of naked twins
-    potential_naked_twins = dict([(box, unit_dict[box]) for box in unit_dict.keys() if len(unit_dict[box]) == 2])
+    potential_naked_twins = dict(
+        [(box, unit_dict_input[box]) for box in unit_dict_input.keys() if len(unit_dict_input[box]) == 2])
 
     potential_naked_twins_occurrences = {}
     for box, value in potential_naked_twins.items():
@@ -55,11 +70,14 @@ def naked_twins_for_unit(unit_dict):
     # Eliminate the naked twins as possibilities for their peers
     for naked_twin_value in naked_twins_occurrences.keys():
         for digit in naked_twin_value:
-            for key, value in unit_dict.items():
+            for key, value in unit_dict_input.items():
                 if key not in naked_twins_occurrences[naked_twin_value]:
-                    unit_dict[key] = value.replace(digit, '')
+                    unit_dict_output[key] = value.replace(digit, '')
 
-    return unit_dict
+    if unit_dict_input != unit_dict_output:
+        naked_twins_for_unit(unit_dict_output)
+    else:
+        return unit_dict_output
 
 
 def cross(A, B):
