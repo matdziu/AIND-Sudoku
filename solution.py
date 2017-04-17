@@ -32,6 +32,8 @@ def naked_twins(values):
     row_units_list = [cross(r, cols) for r in rows]
     col_units_list = [cross(rows, c) for c in cols]
     square_units_list = [cross(rs, cs) for rs in ['ABC', 'DEF', 'GHI'] for cs in ['123', '456', '789']]
+    diagonal_units_list = [[row + col for row, col in zip(rows, cols)],
+                           [row + col for row, col in zip(rows, reversed(cols))]]
 
     for row_unit in row_units_list:
         row_unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in row_unit]))
@@ -46,6 +48,11 @@ def naked_twins(values):
     for square_unit in square_units_list:
         square_unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in square_unit]))
         for box, value in square_unit_dict_reduced.items():
+            assign_value(values, box, value)
+
+    for diagonal_unit in diagonal_units_list:
+        diagonal_unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in diagonal_unit]))
+        for box, value in diagonal_unit_dict_reduced.items():
             assign_value(values, box, value)
 
     return values
