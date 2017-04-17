@@ -36,17 +36,17 @@ def naked_twins(values):
     for row_unit in row_units_list:
         row_unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in row_unit]))
         for box, value in row_unit_dict_reduced.items():
-            values[box] = value
+            assign_value(values, box, value)
 
-    # for col_unit in col_units_list:
-    #     col_unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in col_unit]))
-    #     for box, value in col_unit_dict_reduced.items():
-    #         values[box] = value
+    for col_unit in col_units_list:
+        col_unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in col_unit]))
+        for box, value in col_unit_dict_reduced.items():
+            assign_value(values, box, value)
 
     for square_unit in square_units_list:
         square_unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in square_unit]))
         for box, value in square_unit_dict_reduced.items():
-            values[box] = value
+            assign_value(values, box, value)
 
     return values
 
@@ -72,10 +72,10 @@ def naked_twins_for_unit(unit_dict_input):
         for digit in naked_twin_value:
             for key, value in unit_dict_output.items():
                 if key not in naked_twins_occurrences[naked_twin_value]:
-                    unit_dict_output[key] = value.replace(digit, '')
+                    assign_value(unit_dict_output, key, value.replace(digit, ''))
 
     if unit_dict_input != unit_dict_output:
-        naked_twins_for_unit(unit_dict_output)
+        return naked_twins_for_unit(unit_dict_output)
     else:
         return unit_dict_output
 
