@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="83d0fa70-ccbc-44ee-95eb-62e0a34615c6" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sudoku-1081.zip" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solution.py" afterPath="$PROJECT_DIR$/solution.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solution_test.py" afterPath="$PROJECT_DIR$/solution_test.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,8 +19,8 @@
       <file leaf-file-name="solution_test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/solution_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="79" column="16" lean-forward="true" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="16" />
+            <state relative-caret-position="392">
+              <caret line="85" column="113" lean-forward="true" selection-start-line="85" selection-start-column="113" selection-end-line="85" selection-end-column="113" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -30,8 +31,8 @@
       <file leaf-file-name="solution.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/solution.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="129" column="16" lean-forward="false" selection-start-line="129" selection-start-column="16" selection-end-line="129" selection-end-column="16" />
+            <state relative-caret-position="207">
+              <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -46,8 +47,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/solution_test.py" />
         <option value="$PROJECT_DIR$/solution.py" />
+        <option value="$PROJECT_DIR$/solution_test.py" />
       </list>
     </option>
   </component>
@@ -296,14 +297,14 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_for_solution_test_TestDiagonalSudoku - 2017.04.18 at 11h 29m 36s.xml">
+    <history-entry file="Unittests_for_solution_test_TestDiagonalSudoku - 2017.04.18 at 13h 23m 23s.xml">
       <configuration name="Unittests for solution_test.TestDiagonalSudoku" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_solution_test_TestDiagonalSudoku - 2017.04.18 at 13h 14m 00s.xml">
+    <history-entry file="Unittests_for_solution_test_TestDiagonalSudoku - 2017.04.18 at 13h 24m 19s.xml">
       <configuration name="Unittests for solution_test.TestDiagonalSudoku" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_solution_test_TestNakedTwins_test_naked_twins - 2017.04.17 at 14h 17m 56s.xml">
-      <configuration name="Unittests for solution_test.TestNakedTwins.test_naked_twins" configurationId="tests" />
+    <history-entry file="Unittests_for_solution_test_TestDiagonalSudoku - 2017.04.18 at 13h 25m 13s.xml">
+      <configuration name="Unittests for solution_test.TestDiagonalSudoku" configurationId="tests" />
     </history-entry>
     <history-entry file="Unittests_for_solution_test_TestNakedTwins_test_naked_twins - 2017.04.17 at 14h 39m 15s.xml">
       <configuration name="Unittests for solution_test.TestNakedTwins.test_naked_twins" configurationId="tests" />
@@ -387,7 +388,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="16" />
+      <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -730,14 +731,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/solution.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="129" column="16" lean-forward="false" selection-start-line="129" selection-start-column="16" selection-end-line="129" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -753,10 +746,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/solution.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="162" column="0" lean-forward="false" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/solution_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="79" column="16" lean-forward="true" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="16" />
+        <state relative-caret-position="392">
+          <caret line="85" column="113" lean-forward="true" selection-start-line="85" selection-start-column="113" selection-end-line="85" selection-end-column="113" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
