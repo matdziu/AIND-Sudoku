@@ -11,7 +11,9 @@ can be found based on constraints imposed in previous algorithm iteration.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: Adding new units - two main diagonals - to units list imposes new constraints. They help to find solution by erasing
+more boxes' values from start of algorithm iteration. The constraints imposed at the beginning propagate
+and limit optimal solution search space further during every recursive call to eliminate() and only_choice().
 
 ### Install
 
