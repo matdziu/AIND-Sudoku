@@ -126,7 +126,8 @@ def eliminate(values):
     for single_value_box in single_value_boxes:
         single_value = values[single_value_box]
         for peer_box in peers[single_value_box]:
-            assign_value(values, peer_box, values[peer_box].replace(single_value, ''))
+            if len(values[peer_box]) > 1:
+                assign_value(values, peer_box, values[peer_box].replace(single_value, ''))
 
     return values
 
