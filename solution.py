@@ -125,7 +125,13 @@ def eliminate(values):
 
 
 def only_choice(values):
-    pass
+    for unit in all_units_list:
+        for digit in '123456789':
+            digit_occurrences = [box for box in unit if digit in values[box]]
+            if len(digit_occurrences) == 1:
+                assign_value(values, digit_occurrences[0], digit)
+
+    return values
 
 
 def reduce_puzzle(values):
