@@ -17,6 +17,9 @@ diagonal_units_list = [[row + col for row, col in zip(rows, cols)],
                        [row + col for row, col in zip(rows, reversed(cols))]]
 all_units_list = row_units_list + col_units_list + square_units_list + diagonal_units_list
 
+units = dict((box, [unit for unit in all_units_list if box in unit]) for box in boxes)
+peers = dict((box, set(sum(units[box], [])) - {box}) for box in boxes)
+
 
 def assign_value(values, box, value):
     """
@@ -111,7 +114,7 @@ def display(values):
 
 
 def eliminate(values):
-    pass
+    single_value_boxes = [box for box in boxes if len(values[box]) == 1]
 
 
 def only_choice(values):
