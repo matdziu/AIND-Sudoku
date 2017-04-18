@@ -148,7 +148,17 @@ def reduce_puzzle(values):
 
 
 def search(values):
-    pass
+    reduced_values = reduce_puzzle(values)
+    if reduced_values is False:
+        return False
+    if all(len(reduced_values[box]) == 1 for box in boxes):
+        return reduced_values
+    unsolved_values = [(len(reduced_values[box]), box) for box in reduced_values.keys() if len(reduced_values[box]) > 1]
+    optimal_box = min(unsolved_values)[1]
+    for digit in reduced_values[optimal_box]:
+        reduced_values_copy = reduced_values.copy()
+        reduced_values_copy[optimal_box] = digit
+        return search(reduced_values_copy)
 
 
 def solve(grid):
