@@ -1,12 +1,14 @@
 assignments = []
 
-rows = 'ABCDEFGHI'
-cols = '123456789'
-
 
 def cross(A, B):
     return [a + b for a in A for b in B]
 
+
+rows = 'ABCDEFGHI'
+cols = '123456789'
+
+boxes = cross(rows, cols)
 
 row_units_list = [cross(r, cols) for r in rows]
 col_units_list = [cross(rows, c) for c in cols]
@@ -89,7 +91,14 @@ def grid_values(grid):
             Keys: The boxes, e.g., 'A1'
             Values: The value in each box, e.g., '8'. If the box has no value, then the value will be '123456789'.
     """
-    pass
+    grid_not_empty = []
+    for value in grid:
+        if value == '.':
+            grid_not_empty.append('123456789')
+        else:
+            grid_not_empty.append(value)
+
+    return dict(zip(boxes, grid_not_empty))
 
 
 def display(values):
