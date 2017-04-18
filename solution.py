@@ -116,6 +116,13 @@ def display(values):
 def eliminate(values):
     single_value_boxes = [box for box in boxes if len(values[box]) == 1]
 
+    for single_value_box in single_value_boxes:
+        single_value = values[single_value_box]
+        for peer_box in peers[single_value_box]:
+            assign_value(values, peer_box, values[peer_box].replace(single_value, ''))
+
+    return values
+
 
 def only_choice(values):
     pass
