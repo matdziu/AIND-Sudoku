@@ -121,14 +121,12 @@ def display(values):
 
 
 def eliminate(values):
-    single_value_boxes = [box for box in boxes if len(values[box]) == 1]
+    single_value_boxes = [box for box in values.keys() if len(values[box]) == 1]
 
     for single_value_box in single_value_boxes:
         single_value = values[single_value_box]
         for peer_box in peers[single_value_box]:
-            if len(values[peer_box]) > 1:
-                assign_value(values, peer_box, values[peer_box].replace(single_value, ''))
-
+            assign_value(values, peer_box, values[peer_box].replace(single_value, ''))
     return values
 
 
@@ -169,7 +167,9 @@ def search(values):
     for digit in reduced_values[optimal_box]:
         reduced_values_copy = reduced_values.copy()
         reduced_values_copy[optimal_box] = digit
-        return search(reduced_values_copy)
+        attempt = search(reduced_values_copy)
+        if attempt:
+            return attempt
 
 
 def solve(grid):
@@ -185,15 +185,15 @@ def solve(grid):
 
 
 if __name__ == '__main__':
-    diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+    diag_sudoku_grid = '9.1....8.8.5.7..4.2.4....6...7......5..............83.3..6......9................'
     display(solve(diag_sudoku_grid))
 
-    try:
-        from visualize import visualize_assignments
-
-        visualize_assignments(assignments)
-
-    except SystemExit:
-        pass
-    except:
-        print('We could not visualize your board due to a pygame issue. Not a problem! It is not a requirement.')
+    # try:
+    #     from visualize import visualize_assignments
+    #
+    #     visualize_assignments(assignments)
+    #
+    # except SystemExit:
+    #     pass
+    # except:
+    #     print('We could not visualize your board due to a pygame issue. Not a problem! It is not a requirement.')
