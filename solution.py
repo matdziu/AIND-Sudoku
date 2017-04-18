@@ -47,6 +47,8 @@ def naked_twins(values):
     """
 
     for unit in all_units_list:
+        # Iterating over each unit (row, column, square and diagonal) and applying helper function naked_twins_for_unit
+        # since naked twins can only be found inside separate units.
         unit_dict_reduced = naked_twins_for_unit(dict([(box, values[box]) for box in unit]))
         for box, value in unit_dict_reduced.items():
             assign_value(values, box, value)
@@ -57,27 +59,31 @@ def naked_twins(values):
 def naked_twins_for_unit(unit_dict_input):
     unit_dict_output = unit_dict_input.copy()
 
-    # Find all instances of naked twins
+    # Finding potential naked twins - all boxes that have exactly two-digit values
     potential_naked_twins = dict(
         [(box, unit_dict_input[box]) for box in unit_dict_input.keys() if len(unit_dict_input[box]) == 2])
 
+    # Creating dictionary with all potential naked twins occurrences e.g. {'12' : ['A1, 'A2], '45' : ['D3', 'I9']}
     potential_naked_twins_occurrences = {}
     for box, value in potential_naked_twins.items():
         potential_naked_twins_occurrences[value] = potential_naked_twins_occurrences.get(value, [])
         potential_naked_twins_occurrences[value].append(box)
 
+    # Creating list of values of confirmed naked twins
     naked_twins_values \
         = [value for value, boxes in potential_naked_twins_occurrences.items() if len(boxes) == 2]
 
+    # Dictionary of confirmed naked twins inside given unit (unit_dict_input) - {value : [boxes]}
     naked_twins_occurrences = dict([(value, potential_naked_twins_occurrences[value]) for value in naked_twins_values])
 
-    # Eliminate the naked twins as possibilities for their peers
+    # Eliminating the naked twins as possibilities for their peers
     for naked_twin_value in naked_twins_occurrences.keys():
         for digit in naked_twin_value:
             for key, value in unit_dict_output.items():
                 if key not in naked_twins_occurrences[naked_twin_value]:
                     assign_value(unit_dict_output, key, value.replace(digit, ''))
 
+    # Recursive call if there are new constraints i. e. difference between input and produced output
     if unit_dict_input != unit_dict_output:
         return naked_twins_for_unit(unit_dict_output)
     else:
@@ -101,6 +107,7 @@ def grid_values(grid):
         else:
             grid_not_empty.append(value)
 
+    # Zipping list of tuples with dot ('.') char replaced by '123456789'
     return dict(zip(boxes, grid_not_empty))
 
 
@@ -121,8 +128,10 @@ def display(values):
 
 
 def eliminate(values):
+    # Finding all boxes with single value
     single_value_boxes = [box for box in values.keys() if len(values[box]) == 1]
 
+    # For every single value box deleting its value from its peers
     for single_value_box in single_value_boxes:
         single_value = values[single_value_box]
         for peer_box in peers[single_value_box]:
@@ -133,6 +142,8 @@ def eliminate(values):
 def only_choice(values):
     for unit in all_units_list:
         for digit in '123456789':
+            # Checking every possible digit occurrences in unit
+            # If there's single occurrence in unit then assign this digit to given box
             digit_occurrences = [box for box in unit if digit in values[box]]
             if len(digit_occurrences) == 1:
                 assign_value(values, digit_occurrences[0], digit)
@@ -142,6 +153,7 @@ def only_choice(values):
 
 def reduce_puzzle(values):
     stalled = False
+    # Constraint propagation using while loop and three sudoku solving strategies
     while not stalled:
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
 
@@ -157,17 +169,24 @@ def reduce_puzzle(values):
 
 
 def search(values):
+    # First reduce values as much as possible
     reduced_values = reduce_puzzle(values)
+    # Check for error
     if reduced_values is False:
         return False
+    # Check is solved
     if all(len(reduced_values[box]) == 1 for box in boxes):
         return reduced_values
+    # Listing all boxes with unsettled values in form of tuples list: (length of values, box)
     unsolved_values = [(len(reduced_values[box]), box) for box in reduced_values.keys() if len(reduced_values[box]) > 1]
+    # Finding box with least possibilities (least values)
     optimal_box = min(unsolved_values)[1]
+    # Branching using recursion
     for digit in reduced_values[optimal_box]:
         reduced_values_copy = reduced_values.copy()
         reduced_values_copy[optimal_box] = digit
         attempt = search(reduced_values_copy)
+        # If there was no error - return outcome
         if attempt:
             return attempt
 
